@@ -1,12 +1,5 @@
 #include "Customer.h"
-
-Customer::Customer(int num) 
-{
-	int n = num;
-	Customer::TestNum = num;
-	Pipe = new CTypedPipe<int>("Pipe1", 1024);
-	Pipe->Write(&n);
-}
+#include <string>
 
 Customer::Customer(string Name, FuelType type_of_gas, int card_num, float amount, int pump_num)
 {
@@ -15,11 +8,15 @@ Customer::Customer(string Name, FuelType type_of_gas, int card_num, float amount
 	CustomerInfo.CardNum = card_num;
 	CustomerInfo.Amount = amount;
 	CustomerInfo.PumpNum = pump_num;
+	string s = "Pipe" + to_string(pump_num);
+	Pipe = new CTypedPipe<CustomerInfoStruct>(s, 1024);
+	Pipe->Write(&CustomerInfo);
 }
 void Customer::TestPipe() 
 {
-	CTypedPipe<int> P("Pipe1", 1024);
-	int i;
+	string s = "Pipe" + to_string(CustomerInfo.PumpNum);
+	CTypedPipe<CustomerInfoStruct> P(s, 1024);
+	CustomerInfoStruct i;
 	P.Read(&i);
-	printf("I read %d from the pipe\n", i);
+	printf("I read name %d from the pipe\n", i);
 }

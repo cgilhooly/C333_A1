@@ -1,15 +1,10 @@
 #include "rt.h"
 #include "Customer.h"
+#include "FuelTankMonitor.h"
 
 
 int main() 
 {
-	Customer C = Customer(10);
-	C.TestPipe();
-	getchar();
+	FuelTankMonitor Monitor = FuelTankMonitor(MAX_VOLUME, MAX_VOLUME, MAX_VOLUME, MAX_VOLUME);
 
-	FuelTank F = FuelTank(10, 10, 20, 30);
-	F.TestDP();
-	getchar();
-	return 0;
 }
