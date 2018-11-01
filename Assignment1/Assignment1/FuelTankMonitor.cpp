@@ -94,29 +94,30 @@ void FuelTankMonitor::Withdraw(FuelType Type) {
 }
 
 double FuelTankMonitor::ReadVolume(FuelType Type) {
+	double val;
 	switch (Type) 
 	{
 		case Economy:
 			EcoMutex->Wait();
-			double val = EconomyPtr->Volume;
+			val = EconomyPtr->Volume;
 			EcoMutex->Signal();
 			return val;
 			break;
 		case Regular:
 			RegMutex->Wait();
-			double val = RegularPtr->Volume;
+			val = RegularPtr->Volume;
 			RegMutex->Signal();
 			return val;
 			break;
 		case Extra:
 			ExtMutex->Wait();
-			double val = ExtraPtr->Volume;
+		    val = ExtraPtr->Volume;
 			ExtMutex->Signal();
 			return val;
 			break;
 		case Premium:
 			PreMutex->Wait();
-			double val = PremiumPtr->Volume;
+			val = PremiumPtr->Volume;
 			PreMutex->Signal();
 			return val;
 			break;

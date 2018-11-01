@@ -1,8 +1,3 @@
 ﻿  main.cpp
-  FuelTank.cpp
-  Customer.cpp
-  rt.cpp
-d:\rtexamples\rt.cpp(1789): warning C4244: 'initializing': conversion from 'std::streamsize' to 'int', possible loss of data
-  Generating Code...
   Assignment1.vcxproj -> D:\Visual_Studio_Project\C++\CPEN333 Labs\Assignment1\Assignment1\Debug\Assignment1.exe
   Assignment1.vcxproj -> D:\Visual_Studio_Project\C++\CPEN333 Labs\Assignment1\Assignment1\Debug\Assignment1.pdb (Full PDB)

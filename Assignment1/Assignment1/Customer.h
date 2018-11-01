@@ -1,7 +1,7 @@
 #pragma once
 #include "rt.h"
 #include <iostream>
-#include "FuelTank.h"
+#include "FuelTankMonitor.h"
 using namespace std;
 typedef struct CustomerInfoStruct CustomerInfoStruct;
 struct CustomerInfoStruct
@@ -10,14 +10,15 @@ struct CustomerInfoStruct
 	FuelType TypeOfGas;
 	int CardNum;
 	float Amount;
-	int PumpNum;
+	string PipeName;
 };
 
-class Customer {
+class Customer : public ActiveClass {
 	CTypedPipe<CustomerInfoStruct>* Pipe;
 	int TestNum;
 	CustomerInfoStruct CustomerInfo;
 public:
-	Customer(string Name, FuelType type_of_gas, int card_num, float amount, int pump_num);
+	Customer(string Name, FuelType type_of_gas, int card_num, float amount, string pump_name);
 	void TestPipe();
+	int main();
 };

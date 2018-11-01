@@ -24,7 +24,10 @@
     <ClCompile Include="Customer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FuelTank.cpp">
+    <ClCompile Include="FuelTankMonitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pump.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +35,10 @@
     <ClInclude Include="Customer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FuelTank.h">
+    <ClInclude Include="FuelTankMonitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pump.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
