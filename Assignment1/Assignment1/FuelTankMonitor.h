@@ -13,6 +13,10 @@ private:
 		double Reg_V;
 		double Ext_V;
 		double Pre_V;
+		bool P1ReadyToFill;
+		bool P2ReadyToFill;
+		bool P3ReadyToFill;
+		bool P4ReadyToFill;
 	};
 
 	CDataPool* MonitorDataPool;
@@ -27,5 +31,7 @@ public:
 	void Refill();
 	double ReadVolume(FuelType Type);
 	double ReadTotal();
+	void SetPumpReady(int which_pump);
+	void SetPumpNotReady(int which_pump);
 	~FuelTankMonitor();
 };
