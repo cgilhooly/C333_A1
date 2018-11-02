@@ -10,7 +10,7 @@ Pump::Pump(CRendezvous* r, string dp_name, string pipe_name, string semaphore_na
 	Monitor = ftm;
 	string CSemaphoreName = semaphore_name + "CS";
 	string PSemaphoreName = semaphore_name + "PS";
-	CS = new CSemaphore(CSemaphoreName, 0);
+	CS = new CSemaphore(CSemaphoreName, 1);
 	PS = new CSemaphore(CSemaphoreName, 0);
 }
 
@@ -23,7 +23,6 @@ int Pump::main()
 	PipeFromCustomer->Read(InfoReceived);
 	PumpStatusPtr->CI = *InfoReceived;
 	PumpStatusPtr->ReadyToFuel = false;
-
 
 	PipeMutex->Signal();
 	//ready for next customer
