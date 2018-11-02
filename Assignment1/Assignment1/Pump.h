@@ -16,7 +16,7 @@ class Pump : public ActiveClass
 	CTypedPipe<CustomerInfoStruct>* PipeFromCustomer;
 	FuelTankMonitor* Monitor;
 	CRendezvous *Rendezvous;
-	CMutex *PipeMutex;
+	//CMutex *PipeMutex;
 	CSemaphore* CS;
 	CSemaphore* PS;
 public:
