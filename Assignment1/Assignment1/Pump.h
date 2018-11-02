@@ -17,7 +17,10 @@ class Pump : public ActiveClass
 	FuelTankMonitor* Monitor;
 	CRendezvous *Rendezvous;
 	CMutex *PipeMutex;
+	CSemaphore* CS;
+	CSemaphore* PS;
 public:
-	Pump(CRendezvous* r, string dp_name, string pipe_name, FuelTankMonitor* ftm);
+	Pump(CRendezvous* r, string dp_name, string pipe_name, string semaphore_name, FuelTankMonitor* ftm);
 	int main();
+	~Pump();
 };

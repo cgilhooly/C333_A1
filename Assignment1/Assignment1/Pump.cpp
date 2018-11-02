@@ -1,6 +1,6 @@
 #include "Pump.h"
 
-Pump::Pump(CRendezvous* r, string dp_name, string pipe_name, FuelTankMonitor* ftm) 
+Pump::Pump(CRendezvous* r, string dp_name, string pipe_name, string semaphore_name, FuelTankMonitor* ftm) 
 {
 	Rendezvous = r;
 	PumpDataPool = new CDataPool(dp_name, 1024);
@@ -8,6 +8,10 @@ Pump::Pump(CRendezvous* r, string dp_name, string pipe_name, FuelTankMonitor* ft
 	PipeFromCustomer = new CTypedPipe<CustomerInfoStruct>(pipe_name, 1024);
 	PipeMutex = new CMutex(pipe_name, 1);
 	Monitor = ftm;
+	string CSemaphoreName = semaphore_name + "CS";
+	string PSemaphoreName = semaphore_name + "PS";
+	CS = new CSemaphore(CSemaphoreName, 0);
+	PS = new CSemaphore(CSemaphoreName, 0);
 }
 
 int Pump::main()
@@ -21,7 +25,16 @@ int Pump::main()
 	PumpStatusPtr->ReadyToFuel = false;
 
 
-
 	PipeMutex->Signal();
+	//ready for next customer
 	return 0;
+}
+
+Pump::~Pump() 
+{
+	delete PumpDataPool;
+	delete PipeFromCustomer;
+	delete PipeMutex;
+	delete CS;
+	delete PS;
 }
