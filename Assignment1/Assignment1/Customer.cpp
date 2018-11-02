@@ -10,6 +10,7 @@ Customer::Customer(string Name, FuelType type_of_gas, int card_num, float amount
 	CustomerInfo.PipeName = pipe_name;
 	Pipe = new CTypedPipe<CustomerInfoStruct>(pipe_name, 1024);
 	Pipe->Write(&CustomerInfo);
+	PipeMutex = new CMutex(pipe_name, 0);
 }
 void Customer::TestPipe() 
 {
@@ -21,6 +22,13 @@ void Customer::TestPipe()
 
 int Customer::main() 
 {
-
+	PipeMutex->Wait();
+	//send info through pipe
+	PipeMutex->Signal();
 	return 0;
+}
+
+Customer::~Customer() 
+{
+	delete PipeMutex;
 }
