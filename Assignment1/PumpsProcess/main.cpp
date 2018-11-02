@@ -15,7 +15,8 @@ UINT __stdcall UpdatePumpStatusThread(void *args)
 
 int main() 
 {
-	FuelTankMonitor Monitor = FuelTankMonitor(MAX_VOLUME, MAX_VOLUME, MAX_VOLUME, MAX_VOLUME);
+	FuelTankMonitor Monitor = FuelTankMonitor("Monitor");
+
 	CRendezvous Rendezvous("Rend", 5);
 
 	string PipeName1 = "Pipe1";
@@ -34,5 +35,6 @@ int main()
 	P3.Resume();
 	P4.Resume();
 	UpdatePumpStatus.Resume();
+	printf("volume of eco is %f \n", Monitor.ReadVolume(Economy));
 	getchar();
 }

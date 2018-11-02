@@ -1,94 +1,58 @@
 #include "FuelTankMonitor.h"
 #include <iostream>
 using namespace std;
-FuelTankMonitor::FuelTankMonitor(double eco_v, double reg_v, double ext_v, double pre_v) 
+FuelTankMonitor::FuelTankMonitor(string monitor_name) 
 {
-	EconomyDataPool = new CDataPool("FuelTypeDP", sizeof(FuelTankStruct));
-	RegularDataPool = new CDataPool("FuelTypeDP", sizeof(FuelTankStruct));
-	ExtraDataPool = new CDataPool("FuelTypeDP", sizeof(FuelTankStruct));
-	PremiumDataPool = new CDataPool("FuelTypeDP", sizeof(FuelTankStruct));
-	EconomyPtr = (FuelTankStruct *)(EconomyDataPool->LinkDataPool());
-	RegularPtr = (FuelTankStruct *)(RegularDataPool->LinkDataPool());
-	ExtraPtr = (FuelTankStruct *)(ExtraDataPool->LinkDataPool());
-	PremiumPtr  = (FuelTankStruct *)(PremiumDataPool->LinkDataPool());
-	EcoMutex = new CMutex("EcoMutex", 1);
-	RegMutex = new CMutex("RegMutex", 1);
-	ExtMutex = new CMutex("ExtMutex", 1);
-	PreMutex = new CMutex("PreMutex", 1);
+	MonitorDataPool = new CDataPool(monitor_name+"DP", sizeof(struct VolumeOfTanks)); 
+	MonitorMutex = new CMutex(monitor_name + "Mutex");
+	Data = (struct VolumeOfTanks*) (MonitorDataPool->LinkDataPool());
+}
 
-	EcoMutex->Wait();
-	EconomyPtr ->Volume = eco_v;
-	EcoMutex->Signal();
-
-	RegMutex->Wait();
-	RegularPtr ->Volume = reg_v;
-	RegMutex->Signal();
-
-	ExtMutex->Wait();
-	ExtraPtr ->Volume = ext_v;
-	ExtMutex->Signal();
-
-	PreMutex->Wait();
-	PremiumPtr->Volume = pre_v;
-	PreMutex->Signal();
-	
-	
+void FuelTankMonitor::Init(double eco_v, double reg_v, double ext_v, double pre_v) 
+{
+	MonitorMutex->Wait();
+	Data->Eco_V = eco_v;
+	Data->Reg_V = reg_v;
+	Data->Ext_V = ext_v;
+	Data->Pre_V = pre_v;
+	MonitorMutex->Signal();
 }
 FuelTankMonitor::~FuelTankMonitor() 
 {
-	delete EconomyDataPool;
-	delete RegularDataPool;
-	delete ExtraDataPool;
-	delete PremiumDataPool;
-	delete EconomyPtr;
-	delete RegularPtr;
-	delete ExtraPtr;
-	delete PremiumPtr;
-	delete EcoMutex;
-	delete RegMutex;
-	delete ExtMutex;
-	delete PreMutex;
+	delete MonitorDataPool;
+	delete MonitorMutex;
 }
 void FuelTankMonitor::Refill() {
-	EcoMutex->Wait();
-	EconomyPtr->Volume = MAX_VOLUME;
-	EcoMutex->Signal();
-
-	RegMutex->Wait();
-	RegularPtr->Volume = MAX_VOLUME;
-	RegMutex->Signal();
-
-	ExtMutex->Wait();
-	ExtraPtr->Volume = MAX_VOLUME;
-	ExtMutex->Signal();
-
-	PreMutex->Wait();
-	PremiumPtr->Volume = MAX_VOLUME;
-	PreMutex->Signal();
+	MonitorMutex->Wait();
+	Data->Eco_V = MAX_VOLUME;
+	Data->Reg_V = MAX_VOLUME;
+	Data->Ext_V = MAX_VOLUME;
+	Data->Pre_V = MAX_VOLUME;
+	MonitorMutex->Signal();
 }
 
 void FuelTankMonitor::Withdraw(FuelType Type) {
 	switch (Type) 
 	{
 		case Economy:
-			EcoMutex->Wait();
-			EconomyPtr->Volume -= 0.5;
-			EcoMutex->Signal();
+			MonitorMutex->Wait();
+			Data->Eco_V -= 0.5;
+			MonitorMutex->Signal();
 			break;
 		case Regular:
-			RegMutex->Wait();
-			RegularPtr->Volume -= 0.5;
-			RegMutex->Signal();
+			MonitorMutex->Wait();
+			Data->Reg_V -= 0.5;
+			MonitorMutex->Signal();
 			break;
 		case Extra:
-			ExtMutex->Wait();
-			ExtraPtr->Volume -= 0.5;
-			ExtMutex->Signal();
+			MonitorMutex->Wait();
+			Data->Ext_V -= 0.5;
+			MonitorMutex->Signal();
 			break;
 		case Premium:
-			PreMutex->Wait();
-			PremiumPtr->Volume -= 0.5;
-			PreMutex->Signal();
+			MonitorMutex->Wait();
+			Data->Pre_V -= 0.5;
+			MonitorMutex->Signal();
 			break;
 	}
 }
@@ -98,27 +62,27 @@ double FuelTankMonitor::ReadVolume(FuelType Type) {
 	switch (Type) 
 	{
 		case Economy:
-			EcoMutex->Wait();
-			val = EconomyPtr->Volume;
-			EcoMutex->Signal();
+			MonitorMutex->Wait();
+			val = Data->Eco_V;
+			MonitorMutex->Signal();
 			return val;
 			break;
 		case Regular:
-			RegMutex->Wait();
-			val = RegularPtr->Volume;
-			RegMutex->Signal();
+			MonitorMutex->Wait();
+			val = Data->Reg_V;
+			MonitorMutex->Signal();
 			return val;
 			break;
 		case Extra:
-			ExtMutex->Wait();
-		    val = ExtraPtr->Volume;
-			ExtMutex->Signal();
+			MonitorMutex->Wait();
+		    val = Data->Ext_V;
+			MonitorMutex->Signal();
 			return val;
 			break;
 		case Premium:
-			PreMutex->Wait();
-			val = PremiumPtr->Volume;
-			PreMutex->Signal();
+			MonitorMutex->Wait();
+			val = Data->Pre_V;
+			MonitorMutex->Signal();
 			return val;
 			break;
 	}
@@ -126,6 +90,6 @@ double FuelTankMonitor::ReadVolume(FuelType Type) {
 
 double FuelTankMonitor::ReadTotal() 
 {
-	double sum = EconomyPtr->Volume + RegularPtr->Volume + ExtraPtr->Volume + PremiumPtr->Volume;
+	double sum = Data->Eco_V + Data->Ext_V + Data->Pre_V + Data->Reg_V;
 	return sum;
 }

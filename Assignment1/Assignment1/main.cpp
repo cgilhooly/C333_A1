@@ -7,7 +7,9 @@
 
 int main() 
 {
-	FuelTankMonitor Monitor = FuelTankMonitor(MAX_VOLUME, MAX_VOLUME, MAX_VOLUME, MAX_VOLUME);
+	FuelTankMonitor Monitor = FuelTankMonitor("Monitor");
+	Monitor.Init(MAX_VOLUME, MAX_VOLUME, MAX_VOLUME, MAX_VOLUME);
+
 	// create pump process
 	CProcess p1("D:\\Visual_Studio_Project\\C++\\CPEN333 Labs\\Assignment1\\Assignment1\\Debug\\PumpsProcess.exe",	// pathlist to child program executable				
 			NORMAL_PRIORITY_CLASS,			// priority
@@ -33,7 +35,10 @@ int main()
 	CSemaphore Pump3CS("Pump3CS", 1); // consumer free
 	CSemaphore Pump4PS("Pump4PS", 0); // producer busy
 	CSemaphore Pump4CS("Pump4CS", 1); // consumer free
-
+	for (int i = 0; i < 10; i++) 
+	{
+		Monitor.Withdraw(Economy);
+	}
 	while (true) 
 	{
 		if (Pump1PS.Read() > 0) 

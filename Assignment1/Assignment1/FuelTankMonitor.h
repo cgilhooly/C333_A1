@@ -3,28 +3,26 @@
 typedef struct FuelTankStruct FuelTankStruct;
 enum FuelType {Economy, Regular, Extra, Premium};
 
-struct FuelTankStruct
-{
-	double Volume;
-};
 
 class FuelTankMonitor
 {
-	CDataPool *EconomyDataPool;
-	CDataPool *RegularDataPool;
-	CDataPool *ExtraDataPool;
-	CDataPool *PremiumDataPool;
-	FuelTankStruct *EconomyPtr;
-	FuelTankStruct *RegularPtr;
-	FuelTankStruct *ExtraPtr;
-	FuelTankStruct *PremiumPtr;
-	CMutex  *EcoMutex;
-	CMutex *RegMutex;
-	CMutex *ExtMutex;
-	CMutex *PreMutex;
+private:
+	struct VolumeOfTanks 
+	{
+		double Eco_V;
+		double Reg_V;
+		double Ext_V;
+		double Pre_V;
+	};
+
+	CDataPool* MonitorDataPool;
+	struct VolumeOfTanks* Data;
+	CMutex *MonitorMutex;
+	
 
 public:
-	FuelTankMonitor(double v0, double v1, double v2, double v3);
+	FuelTankMonitor(string monitor_name);
+	void Init(double eco_v, double reg_v, double ext_v, double pre_v);
 	void Withdraw(FuelType Type);
 	void Refill();
 	double ReadVolume(FuelType Type);
