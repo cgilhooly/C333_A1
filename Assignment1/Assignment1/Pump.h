@@ -5,7 +5,7 @@ typedef struct PumpStatusStruct PumpStatus;
 
 struct PumpStatusStruct {
 	CustomerInfoStruct CI;
-	bool ReadyToFuel;
+	//bool ReadyToFuel;
 };
 
 class Pump : public ActiveClass

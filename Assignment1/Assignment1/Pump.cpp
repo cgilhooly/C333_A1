@@ -22,7 +22,7 @@ int Pump::main()
 	PipeFromCustomer->Read(InfoReceived); // pump put to sleep if no info is read
 	printf("got info from first customer\n");
 	PumpStatusPtr->CI = *InfoReceived;
-	PumpStatusPtr->ReadyToFuel = false;
+	//PumpStatusPtr->ReadyToFuel = false;
 
 	//ready for next customer
 	return 0;
