@@ -32,7 +32,7 @@ int Pump::main()
 			PS->Signal();
 			while (Monitor.GetPumpStatus(1) == false) {}
 			Monitor.SetPumpNotReady(1);
-			Sleep(5000);
+			Sleep(2000); // pretend it's fueling rn
 	}
 	
 	//ready for next customer
@@ -50,12 +50,12 @@ string Pump::FormatPumpStatusMessage(CustomerInfoStruct D)
 }
 void Pump::PrintToWindow(string s) 
 {
-	int start_y = 10 * (PumpNum - 1);
+	int start_y = 5 * (PumpNum - 1);
 	WindowMutex->Wait();
 	MOVE_CURSOR(0, start_y);
-	for (int i = 0; i < 10; i++) {
-		for (int i = 0; i < 50; i++) {
-			printf("");
+	for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 30; i++) {
+			printf(" ");
 		}
 		printf("\n");
 		fflush(stdout);

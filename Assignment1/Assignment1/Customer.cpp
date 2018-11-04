@@ -1,5 +1,4 @@
 #include "Customer.h"
-#include <string>
 
 Customer::Customer(string Name, FuelType type_of_gas, int card_num, float amount, string pipe_name)
 {

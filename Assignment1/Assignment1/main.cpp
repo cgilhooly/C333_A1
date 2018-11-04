@@ -20,23 +20,23 @@ int main()
 	// create datapool and link to dp
 	CDataPool PumpStatus1("PumpStatus1", sizeof(PumpStatusStruct));
 	CDataPool PumpStatus2("PumpStatus2", sizeof(PumpStatusStruct));
-	/*CDataPool PumpStatus3("PumpStatus3", sizeof(PumpStatusStruct));
-	CDataPool PumpStatus4("PumpStatus4", sizeof(PumpStatusStruct));*/
+	CDataPool PumpStatus3("PumpStatus3", sizeof(PumpStatusStruct));
+	CDataPool PumpStatus4("PumpStatus4", sizeof(PumpStatusStruct));
 
 	PumpStatusStruct* PumpStatus1Data = (PumpStatusStruct*) PumpStatus1.LinkDataPool();
 	PumpStatusStruct* PumpStatus2Data = (PumpStatusStruct*) PumpStatus2.LinkDataPool();
-	//PumpStatusStruct* PumpStatus3Data = (PumpStatusStruct*) PumpStatus3.LinkDataPool();
-	//PumpStatusStruct* PumpStatus4Data = (PumpStatusStruct*) PumpStatus4.LinkDataPool();
+	PumpStatusStruct* PumpStatus3Data = (PumpStatusStruct*) PumpStatus3.LinkDataPool();
+	PumpStatusStruct* PumpStatus4Data = (PumpStatusStruct*) PumpStatus4.LinkDataPool();
 
 	//semaphore for multiple producer(pumps) and single consumer(gsc)
 	CSemaphore Pump1PS("Pump1PS", 0); // producer busy
 	CSemaphore Pump1CS("Pump1CS", 1); // consumer free
 	CSemaphore Pump2PS("Pump2PS", 0); // producer busy
 	CSemaphore Pump2CS("Pump2CS", 1); // consumer free
-	//CSemaphore Pump3PS("Pump3PS", 0); // producer busy
-	//CSemaphore Pump3CS("Pump3CS", 1); // consumer free
-	//CSemaphore Pump4PS("Pump4PS", 0); // producer busy
-	//CSemaphore Pump4CS("Pump4CS", 1); // consumer free
+	CSemaphore Pump3PS("Pump3PS", 0); // producer busy
+	CSemaphore Pump3CS("Pump3CS", 1); // consumer free
+	CSemaphore Pump4PS("Pump4PS", 0); // producer busy
+	CSemaphore Pump4CS("Pump4CS", 1); // consumer free
 
 	while (true) 
 	{
@@ -60,7 +60,7 @@ int main()
 			Pump2CS.Signal();
 		}
 
-		/*if (Pump3PS.Read() > 0) 
+		if (Pump3PS.Read() > 0) 
 		{
 			Pump3PS.Wait();
 			Pump3CS.Signal();
@@ -70,7 +70,7 @@ int main()
 		{
 			Pump4PS.Wait();
 			Pump4CS.Signal();
-		}*/
+		}
 		
 	}
 	p1.WaitForProcess();

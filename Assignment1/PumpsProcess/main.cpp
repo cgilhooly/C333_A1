@@ -1,7 +1,8 @@
 #include "rt.h"
 #include "Pump.h"
 #include "Customer.h"
-
+//#include <string>
+using namespace std;
 
 UINT __stdcall UpdatePumpStatusThread(void *args) 
 {
@@ -26,39 +27,54 @@ int main()
 
 	Pump P1 (&Rendezvous, 1);
 	Pump P2 (&Rendezvous, 2);
-	//Pump P3 (&Rendezvous, "PumpStatus3", PipeName3, "Pump3", &Monitor);
-	//Pump P4 (&Rendezvous, "PumpStatus4", PipeName4, "Pump4", &Monitor);
+	Pump P3 (&Rendezvous, 3);
+	Pump P4 (&Rendezvous, 4);
 //	CThread UpdatePumpStatus(UpdatePumpStatusThread, SUSPENDED, &Rendezvous);
 
 	
 	// create 5 customer for pump 1
-	Customer c1 = Customer("customer1", Economy, 111, 10, PipeName1);
-	Customer c2 = Customer("cus2", Economy, 222, 10, PipeName2);
-	Customer c3 = Customer("cus3", Economy, 222, 10, PipeName1);
-	Customer c4 = Customer("cus4", Economy, 222, 10, PipeName1);
-	Customer c5 = Customer("cus5", Economy, 222, 10, PipeName1);
-	c1.Resume();
-	c2.Resume();
-	c3.Resume();
-	/*c4.Resume();
-	c5.Resume();
-*/
+	
+	Customer* CustomerList[40];
+	for (int i = 0; i < 10; i++) 
+	{
+		string n = "Customer" + to_string(i);
+		CustomerList[i] = new Customer(n, Economy,222, 20, PipeName1);
+	}
+	for (int i = 10; i < 20; i++) 
+	{
+		string name = "customer" + to_string(i);
+		CustomerList[i] = new Customer(name, Economy, 32, 20, PipeName2);
+	}
+	for (int i = 20; i < 30; i++) 
+	{
+		string name = "customer" + to_string(i);
+		CustomerList[i] = new Customer(name, Economy, 5, 20, PipeName3);
+	}
+	for (int i = 30; i < 40; i++) 
+	{
+		string name = "customer" + to_string(i);
+		CustomerList[i] = new Customer(name, Economy,435, 20, PipeName4);
+	}
+
+	for (int i = 0; i < 40; i++) 
+	{
+		CustomerList[i]->Resume();
+	}
 
 	P1.Resume();
 	P2.Resume();
-	//P3.Resume();
-	//P4.Resume();
+	P3.Resume();
+	P4.Resume();
 	//UpdatePumpStatus.Resume();
 
 	P1.WaitForThread();
-	/*P2.WaitForThread();
+	P2.WaitForThread();
 	P3.WaitForThread();
-	P4.WaitForThread();*/
-	c1.WaitForThread();
-	/*c2.WaitForThread();
-	c3.WaitForThread();
-	c4.WaitForThread();
-	c5.WaitForThread();*/
+	P4.WaitForThread();
+	for (int i = 0; i < 40; i++) 
+	{
+		CustomerList[i]->WaitForThread();
+	}
 	getchar();
 	return 0;
 }

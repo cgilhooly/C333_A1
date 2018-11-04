@@ -1,6 +1,5 @@
 #pragma once
 #include "rt.h"
-#include <iostream>
 #include "FuelTankMonitor.h"
 using namespace std;
 typedef struct CustomerInfoStruct CustomerInfoStruct;

@@ -1,3 +1,10 @@
-﻿  Pump.cpp
+﻿  main.cpp
+  Pump.cpp
+  FuelTankMonitor.cpp
+  Customer.cpp
+  rt.cpp
+d:\rtexamples\rt.cpp(1789): warning C4244: 'initializing': conversion from 'std::streamsize' to 'int', possible loss of data
+  Generating Code...
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\fueltankmonitor.cpp(93): warning C4715: 'FuelTankMonitor::ReadVolume': not all control paths return a value
   Test.vcxproj -> D:\Visual_Studio_Project\C++\CPEN333 Labs\Assignment1\Assignment1\Debug\Test.exe
   Test.vcxproj -> D:\Visual_Studio_Project\C++\CPEN333 Labs\Assignment1\Assignment1\Debug\Test.pdb (Full PDB)
