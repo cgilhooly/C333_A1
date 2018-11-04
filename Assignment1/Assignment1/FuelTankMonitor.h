@@ -1,3 +1,4 @@
+#pragma once
 #include "rt.h"
 #define MAX_VOLUME 500
 typedef struct FuelTankStruct FuelTankStruct;
@@ -25,6 +26,22 @@ private:
 	
 
 public:
+	static string FuelTypeToString(FuelType F) 
+	{
+		switch (F) 
+		{
+			case Economy:
+				return "Economy";
+			case Regular:
+				return "Regular";
+			case Extra:
+				return "Extra";
+			case Premium:
+				return "Premium";
+			default:
+				return "";
+		}
+	}
 	FuelTankMonitor(string monitor_name);
 	void Init(double eco_v, double reg_v, double ext_v, double pre_v);
 	void Withdraw(FuelType Type);

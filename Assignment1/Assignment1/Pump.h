@@ -10,14 +10,19 @@ struct PumpStatusStruct {
 
 class Pump : public ActiveClass
 {
+private:
+	CMutex* WindowMutex;
 	CDataPool *PumpDataPool;
 	PumpStatusStruct *PumpStatusPtr;
-	CustomerInfoStruct *InfoReceived;
+	CustomerInfoStruct InfoReceived;
 	CTypedPipe<CustomerInfoStruct>* PipeFromCustomer;
 	CRendezvous *Rendezvous;
 	//CMutex *PipeMutex;
 	CSemaphore* CS;
 	CSemaphore* PS;
+	int PumpNum = 0;
+	string FormatPumpStatusMessage(CustomerInfoStruct D);
+	void PrintToWindow(string s);
 public:
 	Pump(CRendezvous* r, int pump_num);
 	int main();

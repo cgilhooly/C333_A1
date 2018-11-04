@@ -22,11 +22,11 @@ void Customer::TestPipe()
 int Customer::main() 
 {
 	//arriving in line
-		printf("customer running\n");
-		//PipeMutex->Wait();
+		//printf("customer running\n");
+		PipeMutex->Wait();
 		// swipe credit card
 		Pipe->Write(&CustomerInfo); // put to sleep if no space to write
-		//PipeMutex->Signal();
+		PipeMutex->Signal();
 	return 0;
 }
 
