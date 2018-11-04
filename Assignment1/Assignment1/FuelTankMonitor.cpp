@@ -97,6 +97,36 @@ double FuelTankMonitor::ReadTotal()
 	double sum = Data->Eco_V + Data->Ext_V + Data->Pre_V + Data->Reg_V;
 	return sum;
 }
+
+bool FuelTankMonitor::GetPumpStatus(int which_pump) 
+{
+	bool status = false;
+	switch (which_pump)
+	{
+	case 1:
+		MonitorMutex->Wait();
+		status = Data->P1ReadyToFill;
+		MonitorMutex->Signal();
+		break;
+	case 2:
+		MonitorMutex->Wait();
+		status = Data->P2ReadyToFill;
+		MonitorMutex->Signal();
+		break;
+	case 3:
+		MonitorMutex->Wait();
+		status = Data->P3ReadyToFill;
+		MonitorMutex->Signal();
+
+		break;
+	case 4:
+		MonitorMutex->Wait();
+		status = Data->P4ReadyToFill;
+		MonitorMutex->Signal();
+		break;
+	}
+	return status;
+}
 void FuelTankMonitor::SetPumpReady(int which_pump) 
 {
 	switch (which_pump) 

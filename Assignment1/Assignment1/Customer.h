@@ -20,7 +20,7 @@ class Customer : public ActiveClass {
 	CustomerInfoStruct CustomerInfo;
 
 public:
-	Customer(string Name, FuelType type_of_gas, int card_num, float amount, string pump_name);
+	Customer(string Name, FuelType type_of_gas, int card_num, float amount, string pipe_name);
 	void TestPipe();
 	int main();
 	~Customer();

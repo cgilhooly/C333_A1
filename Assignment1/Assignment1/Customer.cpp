@@ -8,8 +8,7 @@ Customer::Customer(string Name, FuelType type_of_gas, int card_num, float amount
 	CustomerInfo.CardNum = card_num;
 	CustomerInfo.Amount = amount;
 	CustomerInfo.PipeName = pipe_name;
-	Pipe = new CTypedPipe<CustomerInfoStruct>(pipe_name, 1024);
-	Pipe->Write(&CustomerInfo);
+	Pipe = new CTypedPipe<CustomerInfoStruct>(pipe_name, 1);
 	PipeMutex = new CMutex(pipe_name);
 }
 void Customer::TestPipe() 
@@ -23,10 +22,11 @@ void Customer::TestPipe()
 int Customer::main() 
 {
 	//arriving in line
-	PipeMutex->Wait();
-	// swipe credit card
-	Pipe->Write(&CustomerInfo); // put to sleep if no space to write
-	PipeMutex->Signal();
+		printf("customer running\n");
+		//PipeMutex->Wait();
+		// swipe credit card
+		Pipe->Write(&CustomerInfo); // put to sleep if no space to write
+		//PipeMutex->Signal();
 	return 0;
 }
 
