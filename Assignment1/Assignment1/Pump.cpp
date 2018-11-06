@@ -8,14 +8,11 @@ Pump::Pump(CRendezvous* r, int pump_num)
 	PumpDataPool = new CDataPool("PumpStatus" + to_string(pump_num), sizeof(PumpStatusStruct));
 	PumpStatusPtr = (PumpStatusStruct *) (PumpDataPool->LinkDataPool());
 	PipeFromCustomer = new CTypedPipe<CustomerInfoStruct>("Pipe"+ to_string(pump_num), 1);
-	//PipeMutex = new CMutex(pipe_name);
 	string CSemaphoreName = "Pump" + to_string(pump_num) + "CS";
 	string PSemaphoreName = "Pump" + to_string(pump_num) + "PS";
 	CS = new CSemaphore(CSemaphoreName, 1);
 	PS = new CSemaphore(PSemaphoreName, 0);
 	WindowMutex = new CMutex("WindowMutex");
-	//string s = "Pump " + to_string(pump_num) + "====================\n";
-	//PrintToWindow(s);
 }
 
 int Pump::main()
@@ -30,8 +27,9 @@ int Pump::main()
 			CS->Wait();
 			PumpStatusPtr->CI = InfoReceived; // write to datapool
 			PS->Signal();
-			while (Monitor.GetPumpStatus(1) == false) {}
+			while (Monitor.GetPumpStatus(1) == false) {}// wait for gsc permission
 			Monitor.SetPumpNotReady(1);
+
 			Sleep(2000); // pretend it's fueling rn
 	}
 	
