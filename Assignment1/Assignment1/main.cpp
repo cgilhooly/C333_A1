@@ -46,7 +46,7 @@ int main()
 			// consume data from PumpStatusData1
 			// wait for gsc to say go
 			printf("pump1 data consumed\n");
-
+			Monitor.SetPumpReady(1);
 			while (Monitor.GetPumpStatus(1) == false) 
 			{
 				// waiting for permission to start fueling

@@ -9,7 +9,7 @@ struct CustomerInfoStruct
 	FuelType TypeOfGas;
 	int CardNum;
 	float Amount;
-	string PipeName;
+	int PipeNum;
 };
 
 class Customer : public ActiveClass {
@@ -19,7 +19,7 @@ class Customer : public ActiveClass {
 	CustomerInfoStruct CustomerInfo;
 
 public:
-	Customer(string Name, FuelType type_of_gas, int card_num, float amount, string pipe_name);
+	Customer(string Name, FuelType type_of_gas, int card_num, float amount, int pipe_num);
 	void TestPipe();
 	int main();
 	~Customer();

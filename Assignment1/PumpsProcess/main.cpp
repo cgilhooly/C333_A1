@@ -3,7 +3,7 @@
 #include "Customer.h"
 //#include <string>
 using namespace std;
-
+#define CUSTOMER_COUNT 10
 UINT __stdcall UpdatePumpStatusThread(void *args) 
 {
 	CRendezvous* R = (CRendezvous*)args;
@@ -34,29 +34,29 @@ int main()
 	
 	// create 5 customer for pump 1
 	
-	Customer* CustomerList[40];
-	for (int i = 0; i < 10; i++) 
+	Customer* CustomerList[CUSTOMER_COUNT];
+	for (int i = 0; i < 5; i++) 
 	{
 		string n = "Customer" + to_string(i);
-		CustomerList[i] = new Customer(n, Economy,222, 20, PipeName1);
+		CustomerList[i] = new Customer(n, Economy,222, 2, 1);
 	}
-	for (int i = 10; i < 20; i++) 
+	for (int i = 5; i < 8; i++) 
 	{
 		string name = "customer" + to_string(i);
-		CustomerList[i] = new Customer(name, Economy, 32, 20, PipeName2);
+		CustomerList[i] = new Customer(name, Economy, 32, 20, 2);
 	}
-	for (int i = 20; i < 30; i++) 
+	for (int i = 8; i < 9; i++) 
 	{
 		string name = "customer" + to_string(i);
-		CustomerList[i] = new Customer(name, Economy, 5, 20, PipeName3);
+		CustomerList[i] = new Customer(name, Economy, 5, 20, 3);
 	}
-	for (int i = 30; i < 40; i++) 
+	for (int i = 9; i < 10; i++) 
 	{
 		string name = "customer" + to_string(i);
-		CustomerList[i] = new Customer(name, Economy,435, 20, PipeName4);
+		CustomerList[i] = new Customer(name, Economy,435, 20, 4);
 	}
 
-	for (int i = 0; i < 40; i++) 
+	for (int i = 0; i < CUSTOMER_COUNT; i++) 
 	{
 		CustomerList[i]->Resume();
 	}
@@ -71,7 +71,7 @@ int main()
 	P2.WaitForThread();
 	P3.WaitForThread();
 	P4.WaitForThread();
-	for (int i = 0; i < 40; i++) 
+	for (int i = 0; i < CUSTOMER_COUNT; i++) 
 	{
 		CustomerList[i]->WaitForThread();
 	}

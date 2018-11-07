@@ -1,5 +1,6 @@
 ﻿  main.cpp
   Pump.cpp
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\pump.cpp(47): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   FuelTankMonitor.cpp
   Customer.cpp
   rt.cpp
