@@ -20,7 +20,6 @@ class Customer : public ActiveClass {
 
 public:
 	Customer(string Name, FuelType type_of_gas, int card_num, float amount, int pipe_num);
-	void TestPipe();
 	int main();
 	~Customer();
 };

@@ -48,8 +48,5 @@ public:
 	void Refill();
 	double ReadVolume(FuelType Type);
 	double ReadTotal();
-	bool GetPumpStatus(int which_pump);
-	void SetPumpReady(int which_pump);
-	void SetPumpNotReady(int which_pump);
 	~FuelTankMonitor();
 };

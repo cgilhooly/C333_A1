@@ -4,7 +4,7 @@
 
 
 //THIS IS GSC
-
+// signal pump authorized to go on command
 int main() 
 {
 	// initialize monitor
@@ -46,11 +46,12 @@ int main()
 			// consume data from PumpStatusData1
 			// wait for gsc to say go
 			printf("pump1 data consumed\n");
-			Monitor.SetPumpReady(1);
-			while (Monitor.GetPumpStatus(1) == false) 
-			{
-				// waiting for permission to start fueling
-			}
+			CSemaphore S("Pump1Authorized", 0, 1);
+			S.Signal();
+			//while (Monitor.GetPumpStatus(1) == false) 
+			//{
+			//	// waiting for permission to start fueling
+			//}
 			printf("pump1 can start fueling\\n");
 			
 			// update monitor to allow pump to go

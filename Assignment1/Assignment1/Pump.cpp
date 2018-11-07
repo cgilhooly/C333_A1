@@ -14,6 +14,8 @@ Pump::Pump(CRendezvous* r, int pump_num)
 	PS = new CSemaphore(PSemaphoreName, 0);
 	WindowMutex = new CMutex("WindowMutex");
 	Monitor = new FuelTankMonitor("Monitor");
+	string PumpAuthorizedStr = "Pump" + to_string(pump_num) + "Authorized";
+	PumpAuthorized = new CSemaphore(PumpAuthorizedStr, 0, 1);
 }
 
 int Pump::main()
@@ -34,7 +36,8 @@ int Pump::main()
 		PumpStatusPtr->CI = InfoReceived; // write to datapool
 		PS->Signal();
 
-		while (Monitor->GetPumpStatus(PumpNum) == false) {}// waiting for gsc permission
+		// waiting for gsc permission
+		PumpAuthorized->Wait(); // wait for gsc permission
 
 		string PumpReady = "Pump" + to_string(PumpNum) + "Ready";
 		CSemaphore Ready(PumpReady, 0, 1);
@@ -62,8 +65,6 @@ int Pump::main()
 		printf("pump init %d \n", c);
 		fflush(stdout);
 		c++;
-		Monitor->SetPumpNotReady(1); // pump is not ready for next customer
-
 	}
 	
 	//ready for next customer
@@ -108,9 +109,9 @@ Pump::~Pump()
 {
 	delete PumpDataPool;
 	delete PipeFromCustomer;
-	//delete PipeMutex;
 	delete CS;
 	delete PS;
 	delete WindowMutex;
 	delete Monitor;
+	delete PumpAuthorized;
 }

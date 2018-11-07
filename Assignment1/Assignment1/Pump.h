@@ -24,6 +24,7 @@ private:
 	string FormatPumpStatusMessage(CustomerInfoStruct D);
 	void PrintToWindow(string s);
 	FuelTankMonitor* Monitor;
+	CSemaphore* PumpAuthorized;
 public:
 	Pump(CRendezvous* r, int pump_num);
 	int main();
