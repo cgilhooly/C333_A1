@@ -38,7 +38,7 @@ int main()
 	for (int i = 0; i < 5; i++) 
 	{
 		string n = "Customer" + to_string(i);
-		CustomerList[i] = new Customer(n, Economy,222, 2, 1);
+		CustomerList[i] = new Customer(n, Economy,92038309222, 2, 1);
 	}
 	for (int i = 5; i < 8; i++) 
 	{

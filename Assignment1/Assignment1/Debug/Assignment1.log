@@ -1,6 +1,12 @@
 ﻿  Pump.cpp
-d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\pump.cpp(53): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\pump.cpp(50): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   main.cpp
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\main.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1270): note: see declaration of 'scanf'
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\main.cpp(29): warning C4390: ';': empty controlled statement found; is this the intent?
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\main.cpp(30): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+d:\visual_studio_project\c++\cpen333 labs\assignment1\assignment1\assignment1\main.cpp(50): warning C4390: ';': empty controlled statement found; is this the intent?
   FuelTankMonitor.cpp
   Customer.cpp
   rt.cpp
